@@ -3,6 +3,20 @@ import csv
 
 app = Flask(__name__)
 
+
+# Route per inserire o modificare i dati
+@app.route('/index', methods=['GET', 'POST'])
+def modifica_dati():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        eta = request.form['eta']
+        dati = leggi_dati()
+        dati.append([nome, eta])
+        scrivi_dati(dati)
+        return redirect(url_for('visualizza_dati'))
+    return render_template('index.html')
+
+
 # Funzione per leggere i dati dal CSV
 def leggi_dati():
     with open('data.csv', mode='r', newline='') as file:
@@ -21,17 +35,6 @@ def visualizza_dati():
     dati = leggi_dati()
     return render_template('index.html', dati=dati)
 
-# Route per inserire o modificare i dati
-@app.route('/index', methods=['GET', 'POST'])
-def modifica_dati():
-    if request.method == 'POST':
-        nome = request.form['nome']
-        eta = request.form['eta']
-        dati = leggi_dati()
-        dati.append([nome, eta])
-        scrivi_dati(dati)
-        return redirect(url_for('visualizza_dati'))
-    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
