@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizza Dati</title>
+</head>
+<body>
+    <h1>Dati Inseriti</h1>
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <th>Età</th>
+        </tr>
+        {% for riga in dati %}
+        <tr>
+            <td>{{ riga[0] }}</td>
+            <td>{{ riga[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{{ url_for('visualizza_dati') }}">Aggiungi Nuovi Dati</a>
+</body>
+</html>
